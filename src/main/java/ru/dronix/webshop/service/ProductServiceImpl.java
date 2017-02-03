@@ -68,7 +68,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Transactional
+    public List<Product> getProductsByType(String type) {
+        return this.productDao.getProductsByType(type);
+    }
+
+    @Transactional
+    public List<Product> getProductsByTypeSort(String type, String sort) {
+        return this.productDao.getProductsByTypeSort(type,sort);
+    }
+
+    @Transactional
     public List<Product> getProductsByBrandByType(String brand, String type) {
-        return this.productDao.getProductsByBrandByType(brand,type);
+        return this.productDao.getProductsByBrandByType(brand, type);
+    }
+
+    @Transactional
+    public List<Product> getProductsByBrandByTypeSort(String type, String brand, String sort) {
+        return this.productDao.getProductsByBrandByTypeSort(type,brand,sort);
     }
 }

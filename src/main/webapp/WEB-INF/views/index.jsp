@@ -92,9 +92,9 @@
             <ul class="category-section">
 
               <c:if test="${!empty mobiles}">
-                <li><a href="<c:url value="/"/>"><b>Все модели</b></a></li>
+                <li><a href="<c:url value="/types/mobile"/>"><b>Все модели</b></a></li>
                 <c:forEach items="${mobiles}" var="mobile">
-                  <li><a href="<c:url value="/sort/${mobile.type}/${mobile.brand}"/>">${mobile.brand}</a></li>
+                  <li><a href="<c:url value="/list/${mobile.type}/${mobile.brand}"/>">${mobile.brand}</a></li>
                 </c:forEach>
               </c:if>
 
@@ -107,9 +107,9 @@
             <ul class="category-section">
 
               <c:if test="${!empty notepads}">
-                <li><a href="<c:url value="/"/>"><b>Все модели</b></a></li>
+                <li><a href="<c:url value="/types/notepad"/>"><b>Все модели</b></a></li>
                 <c:forEach items="${notepads}" var="notepad">
-                  <li><a href="<c:url value="/sort/${notepad.type}/${notepad.brand}"/>">${notepad.brand}</a></li>
+                  <li><a href="<c:url value="/list/${notepad.type}/${notepad.brand}"/>">${notepad.brand}</a></li>
                 </c:forEach>
               </c:if>
 
@@ -122,9 +122,9 @@
             <ul class="category-section">
 
               <c:if test="${!empty notebooks}">
-                <li><a href="<c:url value="/"/>"><b>Все модели</b></a></li>
+                <li><a href="<c:url value="/types/notebook"/>"><b>Все модели</b></a></li>
                 <c:forEach items="${notebooks}" var="notebook">
-                  <li><a href="<c:url value="/sort/${notebook.type}/${notebook.brand}"/>">${notebook.brand}</a></li>
+                  <li><a href="<c:url value="/list/${notebook.type}/${notebook.brand}"/>">${notebook.brand}</a></li>
                 </c:forEach>
               </c:if>
 
@@ -217,30 +217,32 @@
 
       <div id="block-sorting">
 
-        <p id="nav-breadcrumbs"><a href="">Главная страница</a> \ <span>Все товары</span></p>
+        <p id="nav-breadcrumbs"><a href="<c:url value="/"/>">Главная страница</a> \ <span>Все товары</span></p>
 
-        <ul id="options-list">
+        <c:if test="${!empty listProducts}">
+          <ul id="options-list">
 
-          <li>Вид: </li>
-          <li><img id="style-grid" src="<c:url value="/resources/images/sort-grid-active.png"/>" width="20" height="20" /></li>
-          <li><img id="style-list" src="<c:url value="/resources/images/sort-list.png"/>" width="20" height="20" /></li>
+            <li>Вид: </li>
+            <li><img id="style-grid" src="<c:url value="/resources/images/sort-grid-active.png"/>" width="20" height="20" /></li>
+            <li><img id="style-list" src="<c:url value="/resources/images/sort-list.png"/>" width="20" height="20" /></li>
 
-          <li>Сортировать:</li>
-          <li><a id="select-sort">${sort}</a>
+            <li>Сортировать:</li>
+            <li><a id="select-sort">${sort}</a>
 
-            <ul id="sorting-list">
+              <ul id="sorting-list">
 
-              <li><a href="<c:url value="/sort/ascPrice"/>">От дешовых к дорогим</a></li>
-              <li><a href="<c:url value="/sort/descPrice"/>">От дорогих к дешовым</a></li>
-              <li><a href="<c:url value="/sort/popular"/>">Популярное</a></li>
-              <li><a href="<c:url value="/sort/new"/>">Новинки</a></li>
-              <li><a href="<c:url value="/sort/asc"/>">От А до Я</a></li>
+                <li><a href="<c:url value="/${link}/ascPrice"/>">От дешовых к дорогим</a></li>
+                <li><a href="<c:url value="/${link}/descPrice"/>">От дорогих к дешовым</a></li>
+                <li><a href="<c:url value="/${link}/popular"/>">Популярное</a></li>
+                <li><a href="<c:url value="/${link}/new"/>">Новинки</a></li>
+                <li><a href="<c:url value="/${link}/asc"/>">От А до Я</a></li>
 
 
-            </ul>
-          </li>
+              </ul>
+            </li>
 
-        </ul>
+          </ul>
+        </c:if>
 
       </div>
       <ul id="block-tovar-grid">

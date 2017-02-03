@@ -90,6 +90,48 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public List<Product> getProductsByType(String type) {
+        Session session=this.sessionFactory.getCurrentSession();
+        listProducts=session.createCriteria(Product.class)
+                .add(Restrictions.eq("visible", 1))
+                .add(Restrictions.eq("type_product",type))
+                .list();
+        log.info("Получен отсортированный по названию список всех продуктов");
+        return listProducts;
+    }
+
+    @Override
+    public List<Product> getProductsByTypeSort(String type, String sort) {
+        Session session=this.sessionFactory.getCurrentSession();
+
+        switch (sort){
+            case "ascPrice":
+                listProducts=session.createCriteria(Product.class)
+                        .add(Restrictions.eq("type_product", type))
+                        .add(Restrictions.eq("visible",1))
+                        .addOrder(Order.asc("price"))
+                        .list();
+                break;
+            case "descPrice":
+                listProducts=session.createCriteria(Product.class)
+                        .add(Restrictions.eq("type_product", type))
+                        .add(Restrictions.eq("visible",1))
+                        .addOrder(Order.desc("price"))
+                        .list();
+                break;
+            case "asc":
+                listProducts=session.createCriteria(Product.class)
+                        .add(Restrictions.eq("type_product", type))
+                        .add(Restrictions.eq("visible",1))
+                        .addOrder(Order.asc("title"))
+                        .list();
+                break;
+        }
+
+        return listProducts;
+    }
+
+    @Override
     public List<Product> getProductsByBrandByType(String brand, String type) {
         Session session=this.sessionFactory.getCurrentSession();
         listProducts=session.createCriteria(Product.class)
@@ -98,6 +140,40 @@ public class ProductDaoImpl implements ProductDao {
                 .add(Restrictions.eq("visible",1))
                 .list();
         log.info("Получен список товаров по типу и бренду. Товаров: "+listProducts.size());
+
+        return listProducts;
+    }
+
+    @Override
+    public List<Product> getProductsByBrandByTypeSort(String type, String brand, String sort) {
+        Session session=this.sessionFactory.getCurrentSession();
+
+        switch (sort){
+            case "ascPrice":
+                listProducts=session.createCriteria(Product.class)
+                        .add(Restrictions.eq("type_product", type))
+                        .add(Restrictions.eq("brand", brand))
+                        .add(Restrictions.eq("visible", 1))
+                        .addOrder(Order.asc("price"))
+                        .list();
+                break;
+            case "descPrice":
+                listProducts=session.createCriteria(Product.class)
+                        .add(Restrictions.eq("type_product", type))
+                        .add(Restrictions.eq("brand", brand))
+                        .add(Restrictions.eq("visible", 1))
+                        .addOrder(Order.desc("price"))
+                        .list();
+                break;
+            case "asc":
+                listProducts=session.createCriteria(Product.class)
+                        .add(Restrictions.eq("type_product", type))
+                        .add(Restrictions.eq("brand", brand))
+                        .add(Restrictions.eq("visible", 1))
+                        .addOrder(Order.asc("title"))
+                        .list();
+                break;
+        }
 
         return listProducts;
     }

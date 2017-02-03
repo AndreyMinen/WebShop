@@ -19,6 +19,9 @@ public interface ProductService {
     List<Product> getProductsPopular();
     List<Product> getProductsNew();
     List<Product> getProductsAsc();
+    List<Product> getProductsByType(String type);
+    List<Product> getProductsByTypeSort(String type,String sort);
     List<Product> getProductsByBrandByType(String brand,String type);
+    List<Product> getProductsByBrandByTypeSort(String type,String brand,String sort);
 
 }

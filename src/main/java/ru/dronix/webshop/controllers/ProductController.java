@@ -23,6 +23,7 @@ public class ProductController {
 	public String index(Model model){
 		model.addAttribute("listProducts",this.productService.getAllProducts());
 		model.addAttribute("sort","Без сортировки");
+		model.addAttribute("link","sort");
 
 		categories(model);
 
@@ -62,14 +63,55 @@ public class ProductController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/sort/{type}/{brand}")
-	public String sortByBrand(@PathVariable("brand")String brand,
-							  @PathVariable("type")String type,
-							  Model model){
-		model.addAttribute("listProducts",this.productService.getProductsByBrandByType(brand,type));
-		model.addAttribute("sort",brand);
+	@RequestMapping(value = "/types/{type}")
+	public String listByTypes(@PathVariable("type")String type,Model model){
+		model.addAttribute("listProducts",this.productService.getProductsByType(type));
+		model.addAttribute("link","types/"+type);
+
+		changeType(model,type);
+
 		categories(model);
 
+		return "index";
+	}
+
+	@RequestMapping(value = "/types/{type}/{sort}")
+	public String listByTypes(@PathVariable("type")String type,
+							  @PathVariable("sort")String sort,
+							  Model model){
+		model.addAttribute("listProducts",this.productService.getProductsByTypeSort(type, sort));
+		model.addAttribute("link","types/"+type);
+
+
+
+		changeType(model,type);
+		categories(model);
+
+		return "index";
+	}
+
+	@RequestMapping(value = "/list/{type}/{brand}")
+	public String listProducts(@PathVariable("type")String type,
+							   @PathVariable("brand")String brand,
+							   Model model){
+		model.addAttribute("listProducts",this.productService.getProductsByBrandByType(brand,type));
+		model.addAttribute("sort",brand);
+		model.addAttribute("link",String.format("list/%s/%s",type,brand));
+
+		categories(model);
+		return "index";
+	}
+
+	@RequestMapping(value = "/list/{type}/{brand}/{sort}")
+	public String listProductsSort(@PathVariable("type")String type,
+								   @PathVariable("brand")String brand,
+								   @PathVariable("sort")String sort,
+								   Model model){
+		model.addAttribute("listProducts",this.productService.getProductsByBrandByTypeSort(type,brand,sort));
+		model.addAttribute("link",String.format("list/%s/%s",type,brand));
+
+		changeSort(sort,model);
+		categories(model);
 		return "index";
 	}
 
@@ -77,6 +119,40 @@ public class ProductController {
 		model.addAttribute("mobiles",this.categoryService.getBrandsByType("mobile"));
 		model.addAttribute("notebooks",this.categoryService.getBrandsByType("notebook"));
 		model.addAttribute("notepads",this.categoryService.getBrandsByType("notepad"));
+	}
+
+	private void changeSort(String sort,Model model){
+		switch (sort){
+			case "ascPrice":
+				model.addAttribute("sort","От дешовых к дорогим");
+				break;
+			case "descPrice":
+				model.addAttribute("sort","От дорогих к дешовым");
+				break;
+			case "popular":
+				model.addAttribute("sort","Популярное");
+				break;
+			case "new":
+				model.addAttribute("sort","Новинки");
+				break;
+			case "asc":
+				model.addAttribute("sort","От А до Я");
+				break;
+		}
+	}
+
+	private void changeType(Model model,String type){
+		switch (type){
+			case "mobile":
+				model.addAttribute("sort","Мобильные телефоны");
+				break;
+			case "notebook":
+				model.addAttribute("sort","Ноутбуки");
+				break;
+			case "notepad":
+				model.addAttribute("sort","Планшеты");
+				break;
+		}
 	}
 
 }
