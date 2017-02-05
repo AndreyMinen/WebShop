@@ -6,9 +6,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="shortcut icon" href="<c:url value="/resources/images/logo.ico"/>">
   <link href="<c:url value="/resources/css/index.css"/>" rel="stylesheet" type="text/css" />
+  <link href="<c:url value="/resources/css/trackbar.css"/>" rel="stylesheet" type="text/css" />
+
   <script type="text/javascript" src="<c:url value="/resources/js/jquery-1.8.2.min.js"/>"></script>
   <script type="text/javascript" src="<c:url value="/resources/js/jcarousellite-1.0.1.js"/>"></script>
   <script type="text/javascript" src="<c:url value="/resources/js/main.js"/>"></script>
+  <script type="text/javascript" src="<c:url value="/resources/js/jquery.trackbar.js"/>"></script>
   <title>Магазин</title>
 </head>
 <body>
@@ -143,31 +146,29 @@
 
         <p class="title-filter">Стоимость</p>
 
-        <form method="" action="">
+        <form method="get" action="<c:url value="/filter"/>">
 
           <div id="block-input-price">
 
             <ul>
 
               <li><p>от</p></li>
-              <li><input type="text" id="start-price" name="start_price" value="1000" /></li>
+              <li><input type="text" id="start-price" name="start_price" value="0" /></li>
               <li><p>до</p></li>
-              <li><input type="text" id="end-price" name="end_price" value="30000" /></li>
+              <li><input type="text" id="end-price" name="end_price" value="150000"  /></li>
             </ul>
-
-          </div>
+         </div>
           <div id="block-track-bar"></div>
 
           <p class="title-filter">Производители</p>
 
           <ul class="checkbox-brand">
 
-            <li><input type="checkbox" id="checkbrand1" /><label for="checkbrand1">Бренд1</label></li>
-            <li><input type="checkbox" id="checkbrand2" /><label for="checkbrand2">Бренд2</label></li>
-            <li><input type="checkbox" id="checkbrand3" /><label for="checkbrand3">Бренд3</label></li>
-
+            <c:forEach var="brand" items="${mobiles}">
+              <li><input type="checkbox" name="brands" value="${brand.brand}" id="checkbrand${brand.id}" /><label for="checkbrand${brand.id}">${brand.brand}</label></li>
+            </c:forEach>
           </ul>
-          <center><input type="submit" name="submit" id="button-param-search" value="Найти" /></center>
+          <center><input type="submit" id="button-param-search" value="Найти" /></center>
 
         </form>
 

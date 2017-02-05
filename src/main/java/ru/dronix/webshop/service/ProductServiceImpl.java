@@ -43,6 +43,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Transactional
+    public List<Product> createSQLQuery(String query) {
+        return this.productDao.createSQLQuery(query);
+    }
+
+    @Transactional
     public List<Product> getProductsAscPrice() {
         return this.productDao.getProductsAscPrice();
     }

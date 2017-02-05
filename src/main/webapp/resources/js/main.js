@@ -10,6 +10,19 @@ $(document).ready(function(){
 		speed:500
 	});
 
+	$("#block-track-bar").trackbar({
+		onMove:function(){
+			document.getElementById("start-price").value=this.leftValue;
+			document.getElementById("end-price").value=this.rightValue;
+		},
+		width:160,
+		leftLimit:0,
+		leftValue:0,
+		rightLimit:150000,
+		rightValue:150000,
+		roundUp:1000
+	});
+
 	$("#style-grid").click(function(){
 		$("#block-tovar-list").hide();
 		$("#block-tovar-grid").show();

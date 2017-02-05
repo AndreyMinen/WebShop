@@ -57,6 +57,14 @@ public class ProductDaoImpl implements ProductDao {
         return listProducts;
     }
 
+    @Override
+    public List<Product> createSQLQuery(String query) {
+        Session session=this.sessionFactory.getCurrentSession();
+        listProducts=(List<Product>)session.createSQLQuery(query).addEntity(Product.class).list();
+
+        return listProducts;
+    }
+
     public List<Product> getProductsAscPrice() {
         Session session=this.sessionFactory.getCurrentSession();
         listProducts=session.createCriteria(Product.class).add(Restrictions.eq("visible", 1))

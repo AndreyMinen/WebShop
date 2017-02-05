@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ru.dronix.webshop.service.CategoryService;
 import ru.dronix.webshop.service.ProductService;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @Controller
 public class ProductController {
@@ -111,6 +113,25 @@ public class ProductController {
 		model.addAttribute("link",String.format("list/%s/%s",type,brand));
 
 		changeSort(sort,model);
+		categories(model);
+		return "index";
+	}
+
+	@RequestMapping(value = "/filter")
+	public String filter(HttpServletRequest request,Model model){
+		StringBuilder query=new StringBuilder("SELECT * FROM db_shop.table_products");
+		query.append(" WHERE price BETWEEN "
+				+request.getParameterValues("start_price")[0]
+				+" AND "
+				+request.getParameterValues("end_price")[0]
+				+" AND visible='1' AND");
+
+		for(String brand:request.getParameterValues("brands")){
+			query.append(" brand='"+brand+"' OR");
+		}
+
+		model.addAttribute("listProducts",this.productService.createSQLQuery(query.toString().substring(0,query.length()-3)));
+
 		categories(model);
 		return "index";
 	}

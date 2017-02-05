@@ -342,7 +342,7 @@
 }
 
 #block-input-price input{
-    width: 45px;
+    width: 50px;
     height: 20px;
     font-size: 14px;
     padding-left: 3px;
@@ -357,8 +357,7 @@
 
 #block-track-bar {
     width: 220px;
-    height: 20px;
-    border: 1px solid black;
+    height: 40px;
     margin-top: 20px;
     clear: both;
 }

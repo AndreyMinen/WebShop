@@ -14,6 +14,7 @@ public interface ProductService {
     void deleteProduct(int id);
     Product getProductById(int id);
     List<Product> getAllProducts();
+    List<Product> createSQLQuery(String query);
     List<Product> getProductsAscPrice();
     List<Product> getProductsDescPrice();
     List<Product> getProductsPopular();
