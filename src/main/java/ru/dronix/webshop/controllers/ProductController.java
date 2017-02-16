@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.dronix.webshop.service.CategoryService;
+import ru.dronix.webshop.service.NewsService;
 import ru.dronix.webshop.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,9 @@ public class ProductController {
 
 	@Autowired
 	private CategoryService categoryService;
+
+	@Autowired
+	private NewsService newsService;
 
 	@RequestMapping(value = {"/","/index"},method = RequestMethod.GET)
 	public String index(Model model){
@@ -140,6 +144,8 @@ public class ProductController {
 		model.addAttribute("mobiles",this.categoryService.getBrandsByType("mobile"));
 		model.addAttribute("notebooks",this.categoryService.getBrandsByType("notebook"));
 		model.addAttribute("notepads",this.categoryService.getBrandsByType("notepad"));
+
+		model.addAttribute("news",this.newsService.listAllNews());
 	}
 
 	private void changeSort(String sort,Model model){

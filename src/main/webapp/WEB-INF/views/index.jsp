@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -181,31 +182,17 @@
 
           <ul>
 
-            <li>
+            <c:forEach items="${news}" var="item">
+              <li>
 
-              <span>25.03.2015</span>
-              <a href="">Скидка на какую то хрень</a>
-              <p>С апреля до мая будет скидка на всякую хрень</p>
+                <span><fmt:formatDate value="${item.date}" pattern="dd.MM.yyyy"/></span>
+                <a href="">${item.title}</a>
+                <p>${item.descr}</p>
 
-            </li>
+              </li>
+            </c:forEach>
 
-            <li>
-
-              <span>25.03.2015</span>
-              <a href="">Скидка на какую то хрень</a>
-              <p>С апреля до мая будет скидка на всякую хрень</p>
-
-            </li>
-
-            <li>
-
-              <span>25.03.2015</span>
-              <a href="">Скидка на какую то хрень</a>
-              <p>С апреля до мая будет скидка на всякую хрень</p>
-
-            </li>
-
-          </ul>
+        </ul>
 
         </div>
         <center><img id="news-img-down" src="<c:url value="/resources/images/down.png"/>" width="17" height="17" /></center>
